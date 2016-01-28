@@ -145,7 +145,7 @@ func FormatStats() []string {
 func ConstructShortStats(db *sql.DB, id int) string {
 	// collect general item information
 	query := "SELECT item_name, item_type, weight, c_value, " +
-		"from_zone, last_id " +
+		"from_zone, CAST(last_id AS TEXT) " +
 		"FROM items WHERE item_id = ?"
 	stmt, err := db.Prepare(query)
 	ChkErr(err)
@@ -498,7 +498,7 @@ func ConstructShortStats(db *sql.DB, id int) string {
 func ConstructLongStats(db *sql.DB, id int) string {
 	// collect general item information
 	query := "SELECT item_name, item_type, weight, c_value, " +
-		"zone_name, last_id, keywords " +
+		"zone_name, CAST(last_id AS TEXT), keywords " +
 		"FROM items i, zones z " +
 		"WHERE i.from_zone = z.zone_abbr AND item_id = ?"
 	stmt, err := db.Prepare(query)
